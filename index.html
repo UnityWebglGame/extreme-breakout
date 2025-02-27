@@ -55,9 +55,7 @@
             frameworkUrl: buildUrl + "/extreme-breakout.framework.js.unityweb?id=0.0.4",
         codeUrl: buildUrl + "/extreme-breakout.wasm.unityweb?id=0.0.4",
         streamingAssetsUrl: "StreamingAssets",
-            companyName: "Penpeer co. ltd.",
-        productName: { { { JSON.stringify(PRODUCT_NAME) } } },
-        productVersion: { { { JSON.stringify(PRODUCT_VERSION) } } },
+        companyName: "Penpeer co. ltd.",
         showBanner: unityShowBanner,
     };
         // @formatter:on
@@ -114,6 +112,8 @@
                 canvas.style.width = canvasHeight + "px";
                 canvas.style.height = canvasWidth + "px";
             }
+            canvas.style.margin = "0 auto";
+            canvas.style.display = "block";
         }
 
         function adjustCanvasSize() {
