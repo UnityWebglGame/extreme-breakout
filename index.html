@@ -49,13 +49,15 @@
 
         // @formatter:off
         var buildUrl = "Build";
-        var loaderUrl = buildUrl + "/extreme-breakout.loader.js?id=0.0.2";
+        var loaderUrl = buildUrl + "/extreme-breakout.loader.js?id=0.0.4";
         var config = {
-            dataUrl: buildUrl + "/extreme-breakout.data.unityweb?id=0.0.2",
-            frameworkUrl: buildUrl + "/extreme-breakout.framework.js.unityweb?id=0.0.2",
-        codeUrl: buildUrl + "/extreme-breakout.wasm.unityweb?id=0.0.2",
+            dataUrl: buildUrl + "/extreme-breakout.data.unityweb?id=0.0.4",
+            frameworkUrl: buildUrl + "/extreme-breakout.framework.js.unityweb?id=0.0.4",
+        codeUrl: buildUrl + "/extreme-breakout.wasm.unityweb?id=0.0.4",
         streamingAssetsUrl: "StreamingAssets",
             companyName: "Penpeer co. ltd.",
+        productName: { { { JSON.stringify(PRODUCT_NAME) } } },
+        productVersion: { { { JSON.stringify(PRODUCT_VERSION) } } },
         showBanner: unityShowBanner,
     };
         // @formatter:on
@@ -112,8 +114,6 @@
                 canvas.style.width = canvasHeight + "px";
                 canvas.style.height = canvasWidth + "px";
             }
-            canvas.style.margin = "0 auto";
-            canvas.style.display = "block";
         }
 
         function adjustCanvasSize() {
@@ -145,6 +145,7 @@
             canvas.style.margin = "0 auto";
             canvas.style.display = "block";
         }
+
     </script>
 </body>
 </html>
