@@ -100,21 +100,40 @@
         var viewportWidth = window.innerWidth;
         var viewportHeight = window.innerHeight;
         var devicePixelRatio = window.devicePixelRatio || 1;
+        var targetAspectRatio = 1334 / 750;
 
-        var shortestSide = Math.min(viewportWidth, viewportHeight) * devicePixelRatio;
-        var canvasWidth = shortestSide;
-        var canvasHeight = (shortestSide / 750) * 1334;
+        var canvasWidth, canvasHeight;
 
         if (viewportWidth < viewportHeight) {
             // Portrait mode
-            canvas.style.width = canvasWidth / devicePixelRatio + "px";
-            canvas.style.height = canvasHeight / devicePixelRatio + "px";
+            // First try using width as reference
+            canvasWidth = viewportWidth * devicePixelRatio;
+            canvasHeight = canvasWidth * targetAspectRatio;
+
+            // If height exceeds viewport, recalculate based on height
+            if (canvasHeight / devicePixelRatio > viewportHeight) {
+                canvasHeight = viewportHeight * devicePixelRatio;
+                canvasWidth = canvasHeight / targetAspectRatio;
+            }
         } else {
             // Landscape mode
-            canvas.style.width = canvasHeight / devicePixelRatio + "px";
-            canvas.style.height = canvasWidth / devicePixelRatio + "px";
+            // First try using height as reference
+            canvasHeight = viewportHeight * devicePixelRatio;
+            canvasWidth = canvasHeight * targetAspectRatio;
+
+            // If width exceeds viewport, recalculate based on width
+            if (canvasWidth / devicePixelRatio > viewportWidth) {
+                canvasWidth = viewportWidth * devicePixelRatio;
+                canvasHeight = canvasWidth / targetAspectRatio;
+            }
         }
-        canvas.style.margin = "0 auto";
+
+        canvas.style.width = canvasWidth / devicePixelRatio + "px";
+        canvas.style.height = canvasHeight / devicePixelRatio + "px";
+        canvas.style.position = "absolute";
+        canvas.style.left = "50%";
+        canvas.style.top = "50%";
+        canvas.style.transform = "translate(-50%, -50%)";
         canvas.style.display = "block";
     }
 
