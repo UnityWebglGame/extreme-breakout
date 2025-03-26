@@ -140,28 +140,26 @@
     function adjustCanvasSize() {
         var viewportWidth = window.visualViewport.width;
         var viewportHeight = window.visualViewport.height;
+        var aspectRatio = 750 / 1334; // 颠倒宽高比，使用宽/高
+        var canvasWidth, canvasHeight;
 
-        if (viewportWidth < 750 || viewportHeight < 1334) {
-            var aspectRatio = 1334 / 750;
-            var canvasWidth, canvasHeight;
-
-            if (viewportWidth / viewportHeight > aspectRatio) {
-                // Wider than intended aspect ratio
-                canvasHeight = viewportHeight;
-                canvasWidth = canvasHeight / aspectRatio;
-            } else {
-                // Taller than intended aspect ratio
-                canvasWidth = viewportWidth;
-                canvasHeight = canvasWidth * aspectRatio;
-            }
-
-            canvas.style.width = canvasWidth + "px";
-            canvas.style.height = canvasHeight + "px";
-
-        } else if (!isMobile) {
-            canvas.style.width = "750px";
-            canvas.style.height = "1334px";
+        // 无论是移动设备还是桌面设备，都使用自适应布局
+        if (viewportWidth / viewportHeight < aspectRatio) {
+            // 视口更高，以宽度为基准
+            canvasWidth = Math.min(viewportWidth, 750);
+            canvasHeight = canvasWidth / aspectRatio;
+        } else {
+            // 视口更宽，以高度为基准
+            canvasHeight = Math.min(viewportHeight, 1334);
+            canvasWidth = canvasHeight * aspectRatio;
         }
+
+        // 确保画布不会太小
+        canvasWidth = Math.max(canvasWidth, 375); // 最小宽度为设计宽度的一半
+        canvasHeight = Math.max(canvasHeight, 667); // 最小高度为设计高度的一半
+
+        canvas.style.width = canvasWidth + "px";
+        canvas.style.height = canvasHeight + "px";
         canvas.style.objectFit = "contain";
         canvas.style.margin = "0 auto";
         canvas.style.display = "block";
